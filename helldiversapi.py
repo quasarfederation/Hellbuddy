@@ -1,6 +1,5 @@
 import requests
 
-"""HelldiversAPI is a wrapper that handles information from the Training Manual API. Ideally it should abstract away anything related to the api, and return the desired info."""
 class HelldiversAPI:
     api_link = "https://helldiverstrainingmanual.com/api/v1/"
 
@@ -12,7 +11,7 @@ class HelldiversAPI:
 
         if response.ok:
             news_feed = response.json()
-            dispatch = map(lambda l: HelldiversAPI._clean_json("\n", l, "message"), news_feed)
+            dispatch = map(lambda l: HelldiversAPI._clean_dispatch("\n", l, "message"), news_feed)
         else:
             print(f"Could not retrieve data. Error Code: {response.status_code}")
 
@@ -46,7 +45,6 @@ class HelldiversAPI:
 
         return planet_data
 
-    # TODO: wHAT THE FUCK IS WRONG WITH THIS???????????
     @classmethod
     def get_planet_info(cls, planet_name):
         response = requests.get(f"{cls.api_link}planets")
@@ -56,7 +54,13 @@ class HelldiversAPI:
             planet_list = response.json()
             for planet in planet_list:
                 if planet_list[planet]["name"] == planet_name:
-                    planet_info = planet_list[planet]
+                    planet_info.append(planet_list[planet]["name"])
+                    planet_info.append(planet_list[planet]["sector"])
+                    if planet_list[planet]["biome"]:
+                        planet_info.append(planet_list[planet]["biome"])
+                    if planet_list[planet]["environmentals"]:
+                        planet_info.append(planet_list[planet]["environmentals"])
+
                     break
         else:
             print(f"Could not retrieve data. Error Code: {response.status_code}")
@@ -67,9 +71,9 @@ class HelldiversAPI:
         else:
             return planet_info
 
-    # Probably a better way to do this, but this should work reliably whereas just using .find() wouldn't work.
+    # Probably a better way to do this, but I just wanted a reason to practice using the map() function, lol.
     @staticmethod
-    def _clean_json(test_char, json, category):
+    def _clean_dispatch(test_char, json, category):
         start_index = 0
         for index, char in enumerate(json[category]):
             if char == test_char:

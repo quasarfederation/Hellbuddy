@@ -62,15 +62,23 @@ def on_button_click(identifier, planet_name=None):
             text_output.delete("0.0", "end")
             text_output.insert("0.0", "Connecting to Station 12...\nBROADCAST:\n")
             for planet in HelldiversAPI.get_campaign_info():
-                # TODO: Finish this fstring!
-                text_output.insert("end", f"DISTRESS: {planet["name"]} is overrun with {planet["faction"]}\n")
+                text_output.insert("end", f"DISTRESS: {planet["name"]} is overrun with {planet["faction"]}. "
+                                          f"There are {planet["players"]} Helldivers fighting here. This planet is {round(planet["percentage"], 4)}% liberated.\n"
+                                          f" INFO: {planet["biome"]["description"]}\n\n")
             text_output.config(state="disabled")
         case "select planet":
             text_output.config(state="normal")
             text_output.delete("0.0", "end")
             text_output.insert("0.0", "Connecting to Station 23...\nBROADCAST:\n")
-            for message in HelldiversAPI.get_planet_info(planet_name):
-                text_output.insert("end", message + "\n")
+            info = HelldiversAPI.get_planet_info(planet_name)
+            text_output.insert("end", f"Planet found: {info[0]} // {info[1]} sector.\nINFO: ")
+            try:
+                text_output.insert("end", f"{info[2]["description"]} You can expect the following: \n")
+                for environment in info[3]:
+                    text_output.insert("end", f"{environment["name"]} // which means {environment["description"]}")
+
+            except:
+                text_output.insert("end", "Unavailable...")
             text_output.config(state="disabled")
 
 if __name__ == "__main__":
