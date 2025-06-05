@@ -27,7 +27,7 @@ def main():
     dispatch_btn.config(command=lambda: on_button_click("dispatch"))
     major_order_btn.config(command=lambda: on_button_click("major order"))
     active_planet_btn.config(command=lambda: on_button_click("active planets"))
-    select_planet_btn.config(command=lambda: on_button_click("select planet"))
+    select_planet_btn.config(command=lambda: on_button_click("select planet", planet_name=planet_entry.get()))
 
     label.pack(fill="x")
     button_frame.pack(side="left")
@@ -57,10 +57,21 @@ def on_button_click(identifier, planet_name=None):
             for message in HelldiversAPI.get_major_order():
                 text_output.insert("end", message + "\n")
             text_output.config(state="disabled")
-        case "war status":
-            pass
-        case "search planet":
-            pass
+        case "active planets":
+            text_output.config(state="normal")
+            text_output.delete("0.0", "end")
+            text_output.insert("0.0", "Connecting to Station 12...\nBROADCAST:\n")
+            for planet in HelldiversAPI.get_campaign_info():
+                # TODO: Finish this fstring!
+                text_output.insert("end", f"DISTRESS: {planet["name"]} is overrun with {planet["faction"]}\n")
+            text_output.config(state="disabled")
+        case "select planet":
+            text_output.config(state="normal")
+            text_output.delete("0.0", "end")
+            text_output.insert("0.0", "Connecting to Station 23...\nBROADCAST:\n")
+            for message in HelldiversAPI.get_planet_info(planet_name):
+                text_output.insert("end", message + "\n")
+            text_output.config(state="disabled")
 
 if __name__ == "__main__":
     main()

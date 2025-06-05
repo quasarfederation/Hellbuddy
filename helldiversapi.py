@@ -46,6 +46,7 @@ class HelldiversAPI:
 
         return planet_data
 
+    # TODO: wHAT THE FUCK IS WRONG WITH THIS???????????
     @classmethod
     def get_planet_info(cls, planet_name):
         response = requests.get(f"{cls.api_link}planets")
