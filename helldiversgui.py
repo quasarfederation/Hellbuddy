@@ -7,9 +7,9 @@ window = tk.Tk()
 pyglet.font.add_file("assets\\FS Sinclair Regular.otf")
 pyglet.font.add_file("assets\\FS Sinclair Bold.otf")
 label = tk.Label(window, text="Coretta Kelly Newsfeed", fg="yellow", bg="gray6", font=("FS Sinclair", 27, "bold"), pady=25)
-text_output = tk.Text(window, bg="gray10", fg="yellow", font=("FS Sinclair", 15), height=17)
-dispatch_btn = tk.Button(window, text="Get dispatch", font=("FS Sinclair", 16), bg="gray10", fg="yellow", pady=25, padx=25, overrelief="sunken")
-major_order_btn = tk.Button(window, text="Get MO", font=("FS Sinclair", 16), bg="gray10", fg="yellow", pady=25, padx=25, overrelief="sunken")
+text_output = tk.Text(window, bg="gray10", fg="yellow", font=("FS Sinclair", 15), height=17, relief="flat")
+dispatch_btn = tk.Button(window, text="Get dispatch", font=("FS Sinclair", 16), bg="gray10", fg="yellow", pady=25, padx=25, relief="flat")
+major_order_btn = tk.Button(window, text="Get MO", font=("FS Sinclair", 16), bg="gray10", fg="yellow", pady=25, padx=25, relief="flat")
 
 def main():
     window.config(bg="gray6")
