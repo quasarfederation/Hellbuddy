@@ -52,7 +52,6 @@ def on_button_click(identifier, planet_name=None):
             for message in HelldiversAPI.get_dispatch():
                 timer_var += 3900
                 window.after(timer_var, smooth_insert, "end", message + "\n", 0)
-            timer_var = 0
             text_output.config(state="disabled")
         case "major order":
             text_output.config(state="normal")
@@ -61,7 +60,6 @@ def on_button_click(identifier, planet_name=None):
             for message in HelldiversAPI.get_major_order():
                 timer_var += 1750
                 window.after(timer_var, smooth_insert, "end", message + "\n", 0)
-            timer_var = 0
             text_output.config(state="disabled")
         case "active planets":
             text_output.config(state="normal")
@@ -72,7 +70,6 @@ def on_button_click(identifier, planet_name=None):
                 window.after(timer_var, smooth_insert, "end", f"DISTRESS: {planet["name"]} is overrun with {planet["faction"]}. "
                                           f"There are {planet["players"]} Helldivers fighting here. This planet is {round(planet["percentage"], 4)}% liberated.\n"
                                           f" INFO: {planet["biome"]["description"]}\n\n", 0)
-            timer_var = 0
             text_output.config(state="disabled")
         case "select planet":
             text_output.config(state="normal")
@@ -87,9 +84,8 @@ def on_button_click(identifier, planet_name=None):
                 for environment in info[3]:
                     timer_var += 2000
                     window.after(timer_var, smooth_insert, "end", f"{environment["name"]} // which means {environment["description"]}\n", 0)
-            except:
+            except IndexError:
                 window.after(timer_var, smooth_insert, "end", "Unavailable...", 0)
-            timer_var = 0
             text_output.config(state="disabled")
 
 def smooth_insert(index, string, string_index=0):
