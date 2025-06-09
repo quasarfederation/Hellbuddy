@@ -15,7 +15,7 @@ active_planet_btn = tk.Button(button_frame, text="Get War Status", font=("FS Sin
 select_planet_btn = tk.Button(button_frame, text="Search Planet", font=("FS Sinclair", 16), bg="gray10", fg="yellow", pady=25, padx=34, relief="solid", overrelief="groove")
 planet_entry = tk.Entry(button_frame, bg="gray10", fg="yellow", font=("FS Sinclair", 15), relief="solid")
 
-def main():
+def main() -> None:
     window.config(bg="gray6")
     window.resizable(False, False)
     window.geometry("1280x720")
@@ -38,7 +38,7 @@ def main():
 
     window.mainloop()
 
-def on_button_click(identifier, planet_name=None):
+def on_button_click(identifier: str, planet_name: str=None) -> None:
     timer_var = 0
 
     match identifier:
@@ -77,7 +77,7 @@ def on_button_click(identifier, planet_name=None):
             except IndexError:
                 window.after(timer_var, smooth_insert, "end", "Unavailable...", 0)
 
-def smooth_insert(index, string, string_index=0):
+def smooth_insert(index: str | int, string: str, string_index: int=0) -> None:
     text_output.config(state="normal")
     dispatch_btn.config(state="disabled")
     major_order_btn.config(state="disabled")

@@ -4,7 +4,7 @@ class HelldiversAPI:
     api_link = "https://helldiverstrainingmanual.com/api/v1/"
 
     @classmethod
-    def get_dispatch(cls, time=41000001):
+    def get_dispatch(cls, time=41000001) -> list[str]:
         dispatch_params = {"from": time}
         response = requests.get(f"{cls.api_link}war/news", params=dispatch_params)
         dispatch = []
@@ -18,7 +18,7 @@ class HelldiversAPI:
         return list(dispatch)
 
     @classmethod
-    def get_major_order(cls):
+    def get_major_order(cls) -> list[str]:
         response = requests.get(f"{cls.api_link}war/major-orders")
         major_order_data = []
 
@@ -33,7 +33,7 @@ class HelldiversAPI:
         return major_order_data
 
     @classmethod
-    def get_campaign_info(cls):
+    def get_campaign_info(cls) -> list[dict]:
         response = requests.get(f"{cls.api_link}war/campaign")
         planet_data = []
 
@@ -45,8 +45,9 @@ class HelldiversAPI:
 
         return planet_data
 
+    # The list this method returns contains strings, dictionaries, and lists of dictionaries. What the fuck??????????
     @classmethod
-    def get_planet_info(cls, planet_name):
+    def get_planet_info(cls, planet_name) -> list[str | dict[str, str] | list[dict[str, str]]] | None:
         response = requests.get(f"{cls.api_link}planets")
         planet_info = []
 
@@ -73,7 +74,7 @@ class HelldiversAPI:
 
     # Probably a better way to do this, but I just wanted a reason to practice using the map() function, lol.
     @staticmethod
-    def _clean_dispatch(test_char, json, category):
+    def _clean_dispatch(test_char, json, category) -> str:
         start_index = 0
         for index, char in enumerate(json[category]):
             if char == test_char:
