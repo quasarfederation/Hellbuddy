@@ -15,6 +15,9 @@ active_planet_btn = tk.Button(button_frame, text="Get War Status", font=("FS Sin
 select_planet_btn = tk.Button(button_frame, text="Search Planet", font=("FS Sinclair", 16), bg="gray10", fg="yellow", pady=25, padx=34, relief="flat")
 planet_entry = tk.Entry(button_frame, bg="gray10", fg="yellow", font=("FS Sinclair", 15), relief="sunken")
 
+smooth_text_index = 0
+smooth_text_timer = 0
+
 def main():
     window.config(bg="gray6")
     window.resizable(False, False)
@@ -42,44 +45,67 @@ def main():
     window.mainloop()
 
 def on_button_click(identifier, planet_name=None):
+    global smooth_text_timer
     match identifier:
         case "dispatch":
             text_output.config(state="normal")
             text_output.delete("0.0", "end")
-            text_output.insert("end", "Connecting to Station 5...\n")
+            window.after(25, smooth_insert, "end", "Connecting to Station 5...\n")
             for message in HelldiversAPI.get_dispatch():
-                text_output.insert("end", "BROADCAST:\n" + message + "\n")
+                smooth_text_timer += 3900
+                window.after(smooth_text_timer, smooth_insert,"end", message + "\n")
+            smooth_text_timer = 0
             text_output.config(state="disabled")
         case "major order":
             text_output.config(state="normal")
             text_output.delete("0.0", "end")
-            text_output.insert("0.0", "Connecting to Station 16...\nBROADCAST:\n")
+            window.after(25, smooth_insert, "end", "Connecting to Station 16...\n")
             for message in HelldiversAPI.get_major_order():
-                text_output.insert("end", message + "\n")
+                smooth_text_timer += 1750
+                window.after(smooth_text_timer, smooth_insert,"end", message + "\n")
+            smooth_text_timer = 0
             text_output.config(state="disabled")
         case "active planets":
             text_output.config(state="normal")
             text_output.delete("0.0", "end")
-            text_output.insert("0.0", "Connecting to Station 12...\nBROADCAST:\n")
+            window.after(25, smooth_insert, "end", "Connecting to Station 12...\n")
             for planet in HelldiversAPI.get_campaign_info():
-                text_output.insert("end", f"DISTRESS: {planet["name"]} is overrun with {planet["faction"]}. "
+                smooth_text_timer += 4825
+                window.after(smooth_text_timer, smooth_insert, "end",  f"DISTRESS: {planet["name"]} is overrun with {planet["faction"]}. "
                                           f"There are {planet["players"]} Helldivers fighting here. This planet is {round(planet["percentage"], 4)}% liberated.\n"
                                           f" INFO: {planet["biome"]["description"]}\n\n")
+            smooth_text_timer = 0
             text_output.config(state="disabled")
         case "select planet":
             text_output.config(state="normal")
             text_output.delete("0.0", "end")
-            text_output.insert("0.0", "Connecting to Station 23...\nBROADCAST:\n")
+            window.after(25, smooth_insert, "end", "Connecting to Station 23...\n")
+            smooth_text_timer += 1500
             info = HelldiversAPI.get_planet_info(planet_name)
-            text_output.insert("end", f"Planet found: {info[0]} // {info[1]} sector.\nINFO: ")
+            window.after(smooth_text_timer, smooth_insert, "end", f"Planet found: {info[0]} // {info[1]} sector.\nINFO: ")
             try:
-                text_output.insert("end", f"{info[2]["description"]} You can expect the following: \n")
+                smooth_text_timer += 2000
+                window.after(smooth_text_timer, smooth_insert, "end", f"{info[2]["description"]} You can expect the following: \n")
                 for environment in info[3]:
-                    text_output.insert("end", f"{environment["name"]} // which means {environment["description"]}")
-
+                    smooth_text_timer += 2000
+                    window.after(smooth_text_timer, smooth_insert, "end", f"{environment["name"]} // which means {environment["description"]}\n")
             except:
-                text_output.insert("end", "Unavailable...")
+                window.after(smooth_text_timer, smooth_insert, "end", "Unavailable...")
+            smooth_text_timer = 0
             text_output.config(state="disabled")
+
+def smooth_insert(index, string):
+    global smooth_text_index
+
+    text_output.config(state="normal")
+    text_output.insert(index, string[smooth_text_index])
+    text_output.config(state="disabled")
+    if smooth_text_index + 1 > len(string) - 1:
+        smooth_text_index = 0
+    else:
+        smooth_text_index += 1
+        window.after(10, smooth_insert, index, string)
+
 
 if __name__ == "__main__":
     main()
