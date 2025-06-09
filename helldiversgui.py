@@ -73,10 +73,10 @@ def on_button_click(identifier: str, planet_name: str=None) -> None:
             info = HelldiversAPI.get_planet_info(planet_name)
             try:
                 window.after(timer_var, smooth_insert, "end", f"Planet found: {info[0]} // {info[1]} sector.\nINFO: ", 0)
-                timer_var += 2000
+                timer_var += 1500
                 window.after(timer_var, smooth_insert, "end", f"{info[2]["description"]} You can expect the following: \n", 0)
                 for environment in info[3]:
-                    timer_var += 2000
+                    timer_var += 2750
                     window.after(timer_var, smooth_insert, "end", f"{environment["name"]} // which means {environment["description"]}\n", 0)
             except IndexError:
                 window.after(timer_var, smooth_insert, "end", "Unavailable...", 0)
