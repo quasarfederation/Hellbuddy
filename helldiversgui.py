@@ -23,7 +23,7 @@ def main():
     window.resizable(False, False)
     window.geometry("1280x720")
     window.iconbitmap("assets\\icon.ico")
-    window.title("Hellbuddy v0.9")
+    window.title("Hellbuddy v0.95")
 
     text_output.config(state="disabled")
 
