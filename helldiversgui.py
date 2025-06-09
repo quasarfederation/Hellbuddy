@@ -43,18 +43,21 @@ def on_button_click(identifier: str, planet_name: str=None) -> None:
 
     match identifier:
         case "dispatch":
+            text_output.config(state="normal")
             text_output.delete("0.0", "end")
             window.after(25, smooth_insert, "end", "Connecting to Station 5...\n", 0)
             for message in HelldiversAPI.get_dispatch():
                 timer_var += 3900
                 window.after(timer_var, smooth_insert, "end", message + "\n", 0)
         case "major order":
+            text_output.config(state="normal")
             text_output.delete("0.0", "end")
             window.after(25, smooth_insert, "end", "Connecting to Station 16...\n", 0)
             for message in HelldiversAPI.get_major_order():
                 timer_var += 1750
                 window.after(timer_var, smooth_insert, "end", message + "\n", 0)
         case "active planets":
+            text_output.config(state="normal")
             text_output.delete("0.0", "end")
             window.after(25, smooth_insert, "end", "Connecting to Station 12...\n", 0)
             for planet in HelldiversAPI.get_campaign_info():
@@ -63,6 +66,7 @@ def on_button_click(identifier: str, planet_name: str=None) -> None:
                                           f"There are {planet["players"]} Helldivers fighting here. This planet is {round(planet["percentage"], 4)}% liberated.\n"
                                           f" INFO: {planet["biome"]["description"]}\n\n", 0)
         case "select planet":
+            text_output.config(state="normal")
             text_output.delete("0.0", "end")
             window.after(25, smooth_insert, "end", "Connecting to Station 23...\n", 0)
             timer_var += 1500
