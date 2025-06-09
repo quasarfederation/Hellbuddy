@@ -8,7 +8,7 @@ pyglet.font.add_file("assets\\FS Sinclair Regular.otf")
 pyglet.font.add_file("assets\\FS Sinclair Bold.otf")
 button_frame = tk.Frame(window, bg="gray6", width=450, height=300)
 label = tk.Label(window, text="Coretta Kelly Newsfeed", fg="yellow", bg="gray6", font=("FS Sinclair", 27, "bold"), pady=25)
-text_output = tk.Text(window, bg="gray10", fg="yellow", font=("FS Sinclair", 15), height=17, relief="solid", )
+text_output = tk.Text(window, bg="gray10", fg="yellow", font=("FS Sinclair", 15), height=17, relief="solid", state="disabled")
 dispatch_btn = tk.Button(button_frame, text="Get Dispatch", font=("FS Sinclair", 16), bg="gray10", fg="yellow", pady=25, padx=36, relief="solid", overrelief="groove")
 major_order_btn = tk.Button(button_frame, text="Get Major Order", font=("FS Sinclair", 16), bg="gray10", fg="yellow", pady=25, padx=28, relief="solid", overrelief="groove")
 active_planet_btn = tk.Button(button_frame, text="Get War Status", font=("FS Sinclair", 16), bg="gray10", fg="yellow", pady=25, padx=24, relief="solid", overrelief="groove")
@@ -21,8 +21,6 @@ def main():
     window.geometry("1280x720")
     window.iconbitmap("assets\\icon.ico")
     window.title("Hellbuddy v1.0")
-
-    text_output.config(state="disabled")
 
     dispatch_btn.config(command=lambda: on_button_click("dispatch"))
     major_order_btn.config(command=lambda: on_button_click("major order"))
