@@ -9,10 +9,10 @@ pyglet.font.add_file("assets\\FS Sinclair Bold.otf")
 button_frame = tk.Frame(window, bg="gray6", width=450, height=300)
 label = tk.Label(window, text="Coretta Kelly Newsfeed", fg="yellow", bg="gray6", font=("FS Sinclair", 27, "bold"), pady=25)
 text_output = tk.Text(window, bg="gray10", fg="yellow", font=("FS Sinclair", 15), height=17, relief="solid", )
-dispatch_btn = tk.Button(button_frame, text="Get Dispatch", font=("FS Sinclair", 16), bg="gray10", fg="yellow", pady=25, padx=36, relief="solid")
-major_order_btn = tk.Button(button_frame, text="Get Major Order", font=("FS Sinclair", 16), bg="gray10", fg="yellow", pady=25, padx=28, relief="solid")
-active_planet_btn = tk.Button(button_frame, text="Get War Status", font=("FS Sinclair", 16), bg="gray10", fg="yellow", pady=25, padx=24, relief="solid")
-select_planet_btn = tk.Button(button_frame, text="Search Planet", font=("FS Sinclair", 16), bg="gray10", fg="yellow", pady=25, padx=34, relief="solid")
+dispatch_btn = tk.Button(button_frame, text="Get Dispatch", font=("FS Sinclair", 16), bg="gray10", fg="yellow", pady=25, padx=36, relief="solid", overrelief="groove")
+major_order_btn = tk.Button(button_frame, text="Get Major Order", font=("FS Sinclair", 16), bg="gray10", fg="yellow", pady=25, padx=28, relief="solid", overrelief="groove")
+active_planet_btn = tk.Button(button_frame, text="Get War Status", font=("FS Sinclair", 16), bg="gray10", fg="yellow", pady=25, padx=24, relief="solid", overrelief="groove")
+select_planet_btn = tk.Button(button_frame, text="Search Planet", font=("FS Sinclair", 16), bg="gray10", fg="yellow", pady=25, padx=34, relief="solid", overrelief="groove")
 planet_entry = tk.Entry(button_frame, bg="gray10", fg="yellow", font=("FS Sinclair", 15), relief="solid")
 
 def main():
@@ -81,9 +81,17 @@ def on_button_click(identifier, planet_name=None):
 
 def smooth_insert(index, string, string_index=0):
     text_output.config(state="normal")
+    dispatch_btn.config(state="disabled")
+    major_order_btn.config(state="disabled")
+    active_planet_btn.config(state="disabled")
+    select_planet_btn.config(state="disabled")
     text_output.insert(index, string[string_index])
     if string_index + 1 > len(string) - 1:
         text_output.config(state="disabled")
+        dispatch_btn.config(state="normal")
+        major_order_btn.config(state="normal")
+        active_planet_btn.config(state="normal")
+        select_planet_btn.config(state="normal")
     else:
         string_index += 1
         window.after(10, smooth_insert, index, string, string_index)
