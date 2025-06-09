@@ -8,19 +8,19 @@ pyglet.font.add_file("assets\\FS Sinclair Regular.otf")
 pyglet.font.add_file("assets\\FS Sinclair Bold.otf")
 button_frame = tk.Frame(window, bg="gray6", width=450, height=300)
 label = tk.Label(window, text="Coretta Kelly Newsfeed", fg="yellow", bg="gray6", font=("FS Sinclair", 27, "bold"), pady=25)
-text_output = tk.Text(window, bg="gray10", fg="yellow", font=("FS Sinclair", 15), height=17, relief="flat", )
-dispatch_btn = tk.Button(button_frame, text="Get Dispatch", font=("FS Sinclair", 16), bg="gray10", fg="yellow", pady=25, padx=36, relief="flat")
-major_order_btn = tk.Button(button_frame, text="Get Major Order", font=("FS Sinclair", 16), bg="gray10", fg="yellow", pady=25, padx=28, relief="flat")
-active_planet_btn = tk.Button(button_frame, text="Get War Status", font=("FS Sinclair", 16), bg="gray10", fg="yellow", pady=25, padx=24, relief="flat")
-select_planet_btn = tk.Button(button_frame, text="Search Planet", font=("FS Sinclair", 16), bg="gray10", fg="yellow", pady=25, padx=34, relief="flat")
-planet_entry = tk.Entry(button_frame, bg="gray10", fg="yellow", font=("FS Sinclair", 15), relief="sunken")
+text_output = tk.Text(window, bg="gray10", fg="yellow", font=("FS Sinclair", 15), height=17, relief="solid", )
+dispatch_btn = tk.Button(button_frame, text="Get Dispatch", font=("FS Sinclair", 16), bg="gray10", fg="yellow", pady=25, padx=36, relief="solid")
+major_order_btn = tk.Button(button_frame, text="Get Major Order", font=("FS Sinclair", 16), bg="gray10", fg="yellow", pady=25, padx=28, relief="solid")
+active_planet_btn = tk.Button(button_frame, text="Get War Status", font=("FS Sinclair", 16), bg="gray10", fg="yellow", pady=25, padx=24, relief="solid")
+select_planet_btn = tk.Button(button_frame, text="Search Planet", font=("FS Sinclair", 16), bg="gray10", fg="yellow", pady=25, padx=34, relief="solid")
+planet_entry = tk.Entry(button_frame, bg="gray10", fg="yellow", font=("FS Sinclair", 15), relief="solid")
 
 def main():
     window.config(bg="gray6")
     window.resizable(False, False)
     window.geometry("1280x720")
     window.iconbitmap("assets\\icon.ico")
-    window.title("Hellbuddy v0.95")
+    window.title("Hellbuddy v1.0")
 
     text_output.config(state="disabled")
 
@@ -31,11 +31,11 @@ def main():
 
     label.pack(fill="x")
     button_frame.pack(side="left")
-    text_output.pack(side="right", expand=True)
-    dispatch_btn.grid(row=0, column=0)
-    major_order_btn.grid(row=0, column=1)
-    active_planet_btn.grid(row=1, column=0)
-    select_planet_btn.grid(row=1, column=1)
+    text_output.pack(side="right", expand=True, padx=10, pady=10, fill="y")
+    dispatch_btn.grid(row=0, column=0, pady=5, padx=10)
+    major_order_btn.grid(row=0, column=1, pady=5)
+    active_planet_btn.grid(row=1, column=0, pady=5, padx=10)
+    select_planet_btn.grid(row=1, column=1, pady=5)
     planet_entry.grid(row=3, column=1, pady=15, padx=10)
 
 
