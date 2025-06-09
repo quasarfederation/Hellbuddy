@@ -45,7 +45,7 @@ class HelldiversAPI:
 
         return planet_data
 
-    # The list this method returns contains strings, dictionaries, and lists of dictionaries. What the fuck??????????
+    # The list this method returns contains strings, dictionaries, and lists of dictionaries. What??????????
     @classmethod
     def get_planet_info(cls, planet_name) -> list[str | dict[str, str] | list[dict[str, str]]] | None:
         response = requests.get(f"{cls.api_link}planets")
