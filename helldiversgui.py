@@ -62,7 +62,7 @@ def on_button_click(identifier: str, planet_name: str=None) -> None:
             text_output.delete("0.0", "end")
             window.after(25, smooth_insert, "end", f"Connecting to Station {str(random.randint(10, 100))}...\n", 0)
             for planet in HelldiversAPI.get_campaign_info():
-                timer_var += 4825
+                timer_var += 5250
                 window.after(timer_var, smooth_insert, "end", f"DISTRESS: {planet["name"]} is overrun with {planet["faction"]}. "
                                           f"There are {planet["players"]} Helldivers fighting here. This planet is {round(planet["percentage"], 4)}% liberated.\n"
                                           f" INFO: {planet["biome"]["description"]}\n\n", 0)
